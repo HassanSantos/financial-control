@@ -1,6 +1,7 @@
 package com.hss.service;
 
 import jakarta.inject.Singleton;
+import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
@@ -22,16 +23,25 @@ public record S3UploadService() {
             }
         });
 
-        Arrays.stream(files).forEach(S3UploadService::sendFile);
+        Arrays.stream(files).forEach(this::sendFile);
 
     }
 
-    public static void sendFile(File file) {
+    public void sendFile(File file) {
 
+        byte[] testes = null;
         S3Client.builder()
                 .build().putObject(PutObjectRequest.builder()
                 .bucket("expense-spreadsheet")
                         .key(file.getName())
-                .build(), file.toPath());
+                .build(), RequestBody.fromBytes(testes));
+    }
+
+    public void sexndFile(String fileName, byte[] bytes) {
+        S3Client.builder()
+                .build().putObject(PutObjectRequest.builder()
+                .bucket("expense-spreadsheet")
+                        .key(fileName)
+                .build(), RequestBody.fromBytes(bytes));
     }
 }
