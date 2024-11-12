@@ -6,34 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class FlowBuilder {
+public class FlowBuilder<CTX> {
 
-    private Object ctx;
-    private Object input;
-    private List<FlowItem> flowItem = new ArrayList<>();
+    private List<FlowItem<?, CTX, ?>> flowItem = new ArrayList<>();
 
-    public FlowBuilder step(FlowItem item) {
+    public FlowBuilder<CTX> step(FlowItem<?, CTX, ?> item) {
         flowItem.add(item);
         return this;
     }
 
-    public FlowBuilder builder() {
-
-        return this;
+    public <T extends FlowInter> T builder() {
+        return (T) new FlowExecutor<>(flowItem);
     }
 
-    public Object execute(Object input, Object ctx) {
-
-        for (FlowItem flowItem : flowItem) {
-            try {
-                var response = flowItem.execute(input, ctx);
-                input = response;
-            } catch (Exception e) {
-                var response = flowItem.processException(input, ctx, e);
-                input = response;
-            }
-
-        }
-        return input;
-    }
 }

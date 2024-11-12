@@ -11,7 +11,7 @@ public class TesteActivity extends FlowItem<InputStream, TesteContext, String> {
 
     @Override
     public String doExecute(InputStream is, TesteContext testeContext) {
-        throw  new RuntimeException("");
+        return "";
     }
 
     @Override
