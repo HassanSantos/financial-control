@@ -4,33 +4,41 @@ import com.hss.model.FaturaModel;
 import jakarta.inject.Singleton;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Singleton
 public record ReadCsvService() {
 
-    public void testes(){
-        List<List<String>> records = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("/home/hassan/Downloads/jujutsu/compact/fatura-inter-2024-11.csv"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                    String[] values = line.split(",");
-                records.add(Arrays.asList(values));
-            }
-            records.removeFirst();
-           List<FaturaModel> listFatura = records.stream().map(i -> FaturaModel.builder()
-                    .data(i.get(0))
-                    .lancamento(i.get(1))
-                    .categoria(i.get(2))
-                    .tipo(i.get(3))
-                    .valor(i.get(4)).build()).toList();
+    public void buildObject(InputStream is) {
+        List<FaturaModel> records = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(is, UTF_8))) {
+            breakFile(records, br);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+
+    private void breakFile(List<FaturaModel> records, BufferedReader br) throws IOException {
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] values = line.split(",");
+            var frtm = FaturaModel.builder()
+                    .data(values[0])
+                    .lancamento(values[1])
+                    .categoria(values[2])
+                    .tipo(values[3])
+                    .valor(values[4])
+                    .build();
+            records.add(frtm);
+        }
+        records.removeFirst();
+    }
+
 }

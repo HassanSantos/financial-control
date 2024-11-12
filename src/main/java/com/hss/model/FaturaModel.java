@@ -6,7 +6,6 @@ import lombok.Data;
 @Data
 @Builder
 public class FaturaModel {
-
     private String data;
     private String lancamento;
     private String categoria;
