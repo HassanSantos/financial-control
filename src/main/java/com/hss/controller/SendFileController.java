@@ -1,8 +1,7 @@
 package com.hss.controller;
 
-import com.hss.factory.activity.TesteActivity;
 import com.hss.factory.activity.TesteDoisActivity;
-import com.hss.flow.FlowExecutor;
+import com.hss.flow.FlowExecutorImpl;
 import com.hss.flow.model.TesteContext;
 import com.hss.service.ReadCsvService;
 import com.hss.service.S3UploadService;
@@ -17,17 +16,15 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Controller
-public record SendFileController(TesteActivity testeActivity,
-                                 TesteDoisActivity testeDoisActivity,
+public record SendFileController(TesteDoisActivity testeDoisActivity,
                                  S3UploadService s3UploadService,
                                  ReadCsvService readCsvService,
-                                 FlowExecutor<InputStream, TesteContext, String> executor) {
+                                 FlowExecutorImpl<InputStream, TesteContext, String> executor) {
 
     @Get
     void teste() {
         S3UploadService s3UploadService = new S3UploadService();
-        s3UploadService.sendAllFiles();
-    }
+ }
 
 
     @Post(consumes = MediaType.MULTIPART_FORM_DATA)
@@ -40,7 +37,7 @@ public record SendFileController(TesteActivity testeActivity,
 
         S3UploadService s3UploadService = new S3UploadService();
 //        s3UploadService.sendAllFiles();
-        s3UploadService.sexndFile(file.getFilename(), file.getBytes());
+        s3UploadService.sexndFile(file.getFilename(), file.getBytes(),  "ver nome");
         return null;
     }
 }
