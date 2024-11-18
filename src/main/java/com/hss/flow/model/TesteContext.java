@@ -9,4 +9,5 @@ public class TesteContext {
     private String fileName;
     private String data;
     private String testando;
-}
+    private byte[] bytes;
+    }

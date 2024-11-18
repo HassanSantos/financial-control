@@ -19,7 +19,7 @@ import java.io.InputStream;
 public record SendFileController(TesteDoisActivity testeDoisActivity,
                                  S3UploadService s3UploadService,
                                  ReadCsvService readCsvService,
-                                 FlowExecutorImpl<InputStream, TesteContext, String> executor) {
+                                 FlowExecutorImpl<String, TesteContext, String> executor) {
 
     @Get
     void teste() {
@@ -32,12 +32,12 @@ public record SendFileController(TesteDoisActivity testeDoisActivity,
 
         TesteContext context = TesteContext.builder().fileName("testes").build();
 
-        String teste = executor.execute(file.getInputStream(), context);
-
-
-        S3UploadService s3UploadService = new S3UploadService();
-//        s3UploadService.sendAllFiles();
-        s3UploadService.sexndFile(file.getFilename(), file.getBytes(),  "ver nome");
+        String teste = executor.execute("t", context);
+//
+//
+//        S3UploadService s3UploadService = new S3UploadService();
+////        s3UploadService.sendAllFiles();
+//        s3UploadService.sexndFile(file.getFilename(), file.getBytes(),  "ver nome");
         return null;
     }
 }
