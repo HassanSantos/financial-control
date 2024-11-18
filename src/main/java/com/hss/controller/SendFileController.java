@@ -1,6 +1,5 @@
 package com.hss.controller;
 
-import com.hss.factory.activity.TesteDoisActivity;
 import com.hss.flow.FlowExecutorImpl;
 import com.hss.flow.model.TesteContext;
 import com.hss.service.ReadCsvService;
@@ -13,10 +12,9 @@ import io.micronaut.http.annotation.Post;
 import io.micronaut.http.multipart.CompletedFileUpload;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 @Controller
-public record SendFileController(TesteDoisActivity testeDoisActivity,
+public record SendFileController(
                                  S3UploadService s3UploadService,
                                  ReadCsvService readCsvService,
                                  FlowExecutorImpl<String, TesteContext, String> executor) {
@@ -30,14 +28,10 @@ public record SendFileController(TesteDoisActivity testeDoisActivity,
     @Post(consumes = MediaType.MULTIPART_FORM_DATA)
     public String post(@Part CompletedFileUpload file) throws IOException {
 
-        TesteContext context = TesteContext.builder().fileName("testes").build();
+        TesteContext context = TesteContext.builder().bytes(file.getBytes()).fileName(file.getFilename()).build();
 
         String teste = executor.execute("t", context);
-//
-//
-//        S3UploadService s3UploadService = new S3UploadService();
-////        s3UploadService.sendAllFiles();
-//        s3UploadService.sexndFile(file.getFilename(), file.getBytes(),  "ver nome");
-        return null;
+
+        return "ok";
     }
 }
