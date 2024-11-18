@@ -15,8 +15,8 @@ public class FlowBuilder<CTX> {
         return this;
     }
 
-    public FlowExecutorImpl builder() {
-        return new FlowExecutorImpl<>(flowItem);
+    public <T extends FlowExecutor> T builder() {
+        return (T) new FlowExecutorImpl<>(flowItem);
     }
 
 }
