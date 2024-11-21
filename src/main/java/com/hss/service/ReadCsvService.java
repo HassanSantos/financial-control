@@ -15,11 +15,13 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @Singleton
 public record ReadCsvService() {
 
-    public void buildObject(InputStream is) {
+    public List<FaturaModel> buildObject(InputStream is) {
         List<FaturaModel> records = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is, UTF_8))) {
+
             breakFile(records, br);
+            return records;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

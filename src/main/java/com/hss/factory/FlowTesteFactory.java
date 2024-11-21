@@ -9,12 +9,14 @@ import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
 import jakarta.inject.Named;
 
+import java.io.InputStream;
+
 @Factory
 public record FlowTesteFactory(TesteActivity testeActivity, TesteDoisActivity testeDoisActivity) {
 
     @Bean
     @Named
-    public FlowExecutorImpl<String, TesteContext, String> testes() {
+    public FlowExecutorImpl<InputStream, TesteContext, String> testes() {
         return new FlowBuilder<TesteContext>()
                 .step(testeActivity)
                 .step(testeDoisActivity)

@@ -1,11 +1,16 @@
 package com.hss.model;
 
+import io.micronaut.serde.annotation.Serdeable;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 @Builder
-public class FaturaModel {
+@Serdeable
+
+public class FaturaModel implements Serializable {
     private String data;
     private String lancamento;
     private String categoria;

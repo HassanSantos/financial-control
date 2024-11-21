@@ -12,12 +12,13 @@ import io.micronaut.http.annotation.Post;
 import io.micronaut.http.multipart.CompletedFileUpload;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 @Controller
 public record SendFileController(
                                  S3UploadService s3UploadService,
                                  ReadCsvService readCsvService,
-                                 FlowExecutorImpl<String, TesteContext, String> executor) {
+                                 FlowExecutorImpl<InputStream, TesteContext, String> executor) {
 
     @Get
     void teste() {
@@ -30,8 +31,8 @@ public record SendFileController(
 
         TesteContext context = TesteContext.builder().bytes(file.getBytes()).fileName(file.getFilename()).build();
 
-        String teste = executor.execute("t", context);
+        String teste = executor.execute(file.getInputStream(), context);
 
-        return "ok";
+        return teste;
     }
 }
