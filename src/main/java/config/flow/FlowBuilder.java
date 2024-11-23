@@ -1,4 +1,4 @@
-package com.hss.flow;
+package config.flow;
 
 import lombok.Data;
 

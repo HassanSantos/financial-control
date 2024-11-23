@@ -1,4 +1,4 @@
-package com.hss.flow;
+package config.flow;
 
 public abstract class FlowItem <I, C, O> {
 

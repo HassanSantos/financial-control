@@ -1,4 +1,4 @@
-package com.hss.flow.model;
+package config.flow.model;
 
 import com.hss.model.FaturaModel;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package com.hss.service;
+package com.hss.entrypoint.s3;
 
 import jakarta.inject.Singleton;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -9,7 +9,7 @@ import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 @Singleton
 public record S3UploadService() {
 
-    public PutObjectResponse sexndFile(String fileName, byte[] bytes, String bucket) {
+    public  static PutObjectResponse sexndFile(String fileName, byte[] bytes, String bucket) {
         return S3Client.builder()
                 .build()
                 .putObject(PutObjectRequest.builder()
