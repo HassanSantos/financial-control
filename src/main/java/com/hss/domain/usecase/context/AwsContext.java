@@ -1,4 +1,4 @@
-package com.hss.workflow.context;
+package com.hss.domain.usecase.context;
 
 import lombok.Builder;
 import lombok.Data;

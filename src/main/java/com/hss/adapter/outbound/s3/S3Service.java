@@ -1,4 +1,4 @@
-package com.hss.adapter.outbound;
+package com.hss.adapter.outbound.s3;
 
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -12,7 +12,6 @@ public class S3Service {
                 .bucket(bucketName)
                 .key(fileName)
                 .build();
-
         s3Client.putObject(putObjectRequest, RequestBody.fromBytes(bytesFile));
     }
 }

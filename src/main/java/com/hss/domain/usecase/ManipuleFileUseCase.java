@@ -1,15 +1,15 @@
-package com.hss.workflow;
+package com.hss.domain.usecase;
 
 import com.hss.FluxBuilder;
 import com.hss.FluxExecutorImpl;
-import com.hss.workflow.activity.SaveS3Activity;
-import com.hss.workflow.activity.SendToDynamondActivity;
-import com.hss.workflow.context.AwsContext;
+import com.hss.domain.usecase.activity.SaveS3Activity;
+import com.hss.domain.usecase.activity.SendToDynamondActivity;
+import com.hss.domain.usecase.context.AwsContext;
 import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
 
 @Factory
-public record ManipuleFileFactory(SaveS3Activity saveS3Activity,
+public record ManipuleFileUseCase(SaveS3Activity saveS3Activity,
                                   SendToDynamondActivity sendToDynamondActivity) {
 
     @Bean

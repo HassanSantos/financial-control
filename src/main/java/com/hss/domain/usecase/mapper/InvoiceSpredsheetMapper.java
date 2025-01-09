@@ -1,4 +1,4 @@
-package com.hss.domain.usecase;
+package com.hss.domain.usecase.mapper;
 
 import com.hss.domain.usecase.model.InvoiceModel;
 import jakarta.inject.Singleton;
@@ -10,7 +10,7 @@ import java.util.List;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Singleton
-public record ReadCsvService() {
+public record InvoiceSpredsheetMapper() {
 
     public static List<InvoiceModel> buildObject(byte[] bytes) {
         List<InvoiceModel> records = new ArrayList<>();

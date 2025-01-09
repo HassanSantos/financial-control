@@ -1,10 +1,10 @@
-package com.hss.workflow.activity;
+package com.hss.domain.usecase.activity;
 
 import com.hss.FluxItem;
-import com.hss.workflow.context.AwsContext;
+import com.hss.domain.usecase.context.AwsContext;
 import jakarta.inject.Singleton;
 
-import static com.hss.adapter.outbound.S3Service.sendToS3Bucker;
+import static com.hss.adapter.outbound.s3.S3Service.sendToS3Bucker;
 
 @Singleton
 public class SaveS3Activity extends FluxItem<String, AwsContext, String> {

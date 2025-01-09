@@ -1,4 +1,4 @@
-package com.hss.adapter.inbound.sqs.model;
+package com.hss.adapter.outbound.sqs.model;
 
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.serde.annotation.Serdeable;
