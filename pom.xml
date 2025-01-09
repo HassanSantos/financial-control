@@ -25,33 +25,20 @@
 
     <repositories>
         <repository>
-            <id>central</id>
-            <url>https://repo.maven.apache.org/maven2</url>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/HassanSantos/flux/</url>
         </repository>
     </repositories>
-
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/software.amazon.awssdk/sqs -->
+        <dependency>
+            <groupId>com.hss</groupId>
+            <artifactId>flux</artifactId>
+            <version>1.3</version>
+        </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>sqs</artifactId>
-            <version>2.29.17</version>
         </dependency>
-         <dependency>
-                <groupId>com.amazonaws</groupId>
-                <artifactId>aws-lambda-java-core</artifactId>
-                <version>1.2.2</version>
-            </dependency>
-            <dependency>
-                <groupId>com.amazonaws</groupId>
-                <artifactId>aws-lambda-java-events</artifactId>
-                <version>3.11.1</version>
-            </dependency>
-            <dependency>
-                <groupId>com.amazonaws</groupId>
-                <artifactId>aws-lambda-java-log4j2</artifactId>
-                <version>1.5.1</version>
-            </dependency>
 
         <dependency>
             <groupId>io.micronaut</groupId>

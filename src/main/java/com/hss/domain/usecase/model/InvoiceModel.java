@@ -1,4 +1,4 @@
-package com.hss.workflow.model;
+package com.hss.domain.usecase.model;
 
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.Builder;

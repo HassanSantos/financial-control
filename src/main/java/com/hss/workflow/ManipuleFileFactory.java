@@ -1,14 +1,22 @@
 package com.hss.workflow;
 
-import com.hss.workflow.model.InvoiceModel;
-import config.flow.FlowBuilder;
-import config.flow.FlowExecutorImpl;
+import com.hss.FluxBuilder;
+import com.hss.FluxExecutorImpl;
+import com.hss.workflow.activity.SaveS3Activity;
+import com.hss.workflow.activity.SendToDynamondActivity;
+import com.hss.workflow.context.AwsContext;
+import io.micronaut.context.annotation.Bean;
+import io.micronaut.context.annotation.Factory;
 
-public record ManipuleFileFactory() {
+@Factory
+public record ManipuleFileFactory(SaveS3Activity saveS3Activity,
+                                  SendToDynamondActivity sendToDynamondActivity) {
 
-
-    public FlowExecutorImpl<InvoiceModel, Void, String> saveDataFile(){
-    return new FlowBuilder<Void>()
-            .builder();
+    @Bean
+    public FluxExecutorImpl<String, AwsContext, String> fifoWorkflow() {
+        return new FluxBuilder<AwsContext>()
+                .step(saveS3Activity)
+                .step(sendToDynamondActivity)
+                .builder();
     }
 }

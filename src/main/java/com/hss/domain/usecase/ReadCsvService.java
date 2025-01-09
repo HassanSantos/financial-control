@@ -1,12 +1,9 @@
-package com.hss.service;
+package com.hss.domain.usecase;
 
-import com.hss.model.FaturaModel;
+import com.hss.domain.usecase.model.InvoiceModel;
 import jakarta.inject.Singleton;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +12,10 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @Singleton
 public record ReadCsvService() {
 
-    public List<FaturaModel> buildObject(InputStream is) {
-        List<FaturaModel> records = new ArrayList<>();
+    public static List<InvoiceModel> buildObject(byte[] bytes) {
+        List<InvoiceModel> records = new ArrayList<>();
+
+        InputStream is = new ByteArrayInputStream(bytes);
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is, UTF_8))) {
 
@@ -27,11 +26,11 @@ public record ReadCsvService() {
         }
     }
 
-    private void breakFile(List<FaturaModel> records, BufferedReader br) throws IOException {
+    private static void breakFile(List<InvoiceModel> records, BufferedReader br) throws IOException {
         String line;
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
-            var frtm = FaturaModel.builder()
+            var frtm = InvoiceModel.builder()
                     .data(values[0])
                     .lancamento(values[1])
                     .categoria(values[2])
