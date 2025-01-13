@@ -2,17 +2,20 @@ package com.hss.domain.usecase.activity;
 
 import com.hss.FluxItem;
 import com.hss.domain.usecase.context.AwsContext;
+import com.hss.domain.usecase.ports.outbound.FileService;
 import jakarta.inject.Singleton;
+import lombok.RequiredArgsConstructor;
 
-import static com.hss.adapter.outbound.s3.S3Service.sendToS3Bucker;
 
 @Singleton
-public class SaveS3Activity extends FluxItem<String, AwsContext, String> {
+@RequiredArgsConstructor
+public class SaveFileActivity extends FluxItem<String, AwsContext, String> {
+
+    private final FileService fileService;
 
     @Override
     public String doExecute(String sqsModelInvoice, AwsContext awsContext) {
-
-        sendToS3Bucker("financial-control", "file.txt", awsContext.getBytesFile());
+        fileService.saveFile("financial-control", "file.txt", awsContext.getBytesFile());
         return "";
     }
 

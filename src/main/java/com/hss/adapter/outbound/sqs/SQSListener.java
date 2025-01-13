@@ -1,7 +1,6 @@
 package com.hss.adapter.outbound.sqs;
 
 import com.hss.FluxExecutorImpl;
-import com.hss.adapter.outbound.sqs.model.ModelSendSqs;
 import com.hss.config.envirioments.EnviriomentsModel;
 import com.hss.domain.usecase.context.AwsContext;
 import io.micronaut.scheduling.annotation.Scheduled;
@@ -9,8 +8,6 @@ import io.micronaut.serde.ObjectMapper;
 import jakarta.inject.Singleton;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
-
-import java.io.IOException;
 
 @Singleton
 public record SQSListener(EnviriomentsModel enviriomentsModel, SqsClient sqsClient,
@@ -33,14 +30,9 @@ public record SQSListener(EnviriomentsModel enviriomentsModel, SqsClient sqsClie
     private void extracted(String messages) {
 
         try {
-            var context = AwsContext.builder().bytesFile(getBytesFile(messages)).build();
-            fluxExecutor.execute(null, context);
+            fluxExecutor.execute(messages, AwsContext.builder().build());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private byte[] getBytesFile(String messages) throws IOException {
-        return objectMapper.readValue(messages, ModelSendSqs.class).getBytesFile();
     }
 }

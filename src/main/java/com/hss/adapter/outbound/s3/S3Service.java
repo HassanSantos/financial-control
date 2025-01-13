@@ -1,12 +1,15 @@
 package com.hss.adapter.outbound.s3;
 
+import com.hss.domain.usecase.ports.outbound.FileService;
+import jakarta.inject.Singleton;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
-public class S3Service {
+@Singleton
+public class S3Service implements FileService {
 
-    public static void sendToS3Bucker(String bucketName, String fileName, byte[] bytesFile) {
+    public void saveFile(String bucketName, String fileName, byte[] bytesFile) {
         S3Client s3Client = S3Client.builder().build();
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
